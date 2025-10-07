@@ -49,13 +49,14 @@ CREATE OR REPLACE PROCEDURE SP_INSERTAR_PAGO(
 IS
 BEGIN
     INSERT INTO PAGOS (ID_FACTURA, MONTO, FECHA_PAGO)
-    VALUES (p_id_factura, p_monto, p_fecha_pago) RETURNING ID_PAGO INTO P_id_pago;
+    VALUES (p_id_factura, p_monto, p_fecha_pago) RETURNING ID_PAGO INTO p_id_pago;
     COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
         ROLLBACK;
         RAISE;
 END;
+
 
 
 
