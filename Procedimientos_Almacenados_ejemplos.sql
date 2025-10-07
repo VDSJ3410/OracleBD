@@ -43,18 +43,19 @@ END;
 CREATE OR REPLACE PROCEDURE SP_INSERTAR_PAGO(
     p_id_factura IN NUMBER,
     p_monto IN NUMBER,
-    p_fecha_pago IN DATE
+    p_fecha_pago IN DATE,
+    p_id_pago OUT NUMBER
 )
 IS
-    v_id_pago NUMBER;
 BEGIN
     INSERT INTO PAGOS (ID_FACTURA, MONTO, FECHA_PAGO)
-    VALUES (p_id_factura, p_monto, p_fecha_pago) RETURNING ID_PAGO INTO v_id_pago;
+    VALUES (p_id_factura, p_monto, p_fecha_pago) RETURNING ID_PAGO INTO P_id_pago;
     COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
         ROLLBACK;
         RAISE;
 END;
+
 
 
