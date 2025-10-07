@@ -18,16 +18,17 @@ BEGIN
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20001, 'Error al crear la secuencia' || v_seq_name || ':' || SQLERRM);
 END;
+
 CREATE OR REPLACE PROCEDURE SP_INSERTAR_FACTURA (
     p_id_cliente IN NUMBER,
     p_monto_total IN NUMBER,
-    p_fecha_factura IN DATE
+    p_fecha_factura IN DATE,
+    p_id_factura OUT NUMBER
 )
 IS
-    v_id_factura NUMBER;
 BEGIN
     INSERT INTO FACTURAS (ID_CLIENTE, MONTO_TOTAL, FECHA_FACTURA)
-    VALUES (p_id_cliente, p_monto_total,  p_fecha_factura) RETURNING ID_FACTURA INTO v_id_factura;
+    VALUES (p_id_cliente, p_monto_total,  p_fecha_factura) RETURNING ID_FACTURA INTO p_id_factura;
     
     COMMIT;
     EXCEPTION
@@ -55,4 +56,5 @@ BEGIN
         ROLLBACK;
         RAISE;
 END;
+
 
