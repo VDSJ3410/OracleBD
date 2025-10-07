@@ -11,7 +11,7 @@ BEGIN
     AND SEQUENCE_OWNER = SYS_CONTEXT('USERENV', 'CURRENT_SCHEMA');
     -- Si no existe la secuencia se debe de crear
     IF v_count = 0 THEN 
-        EXECUTE IMMEDIATE 'CREATE SEQUENCE' || v_seq_name || 'START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE';
+        EXECUTE IMMEDIATE 'CREATE SEQUENCE ' || v_seq_name || ' START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE';
         DBMS_OUTPUT.PUT_LINE('Secuencia ' || v_seq_name || 'Creada.');
     END IF;
     EXCEPTION 
@@ -56,6 +56,7 @@ BEGIN
         ROLLBACK;
         RAISE;
 END;
+
 
 
 
